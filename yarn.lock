@@ -2088,6 +2088,11 @@
   "resolved" "https://registry.nlark.com/big.js/download/big.js-5.2.2.tgz"
   "version" "5.2.2"
 
+"bignumber.js@^9.0.0":
+  "integrity" "sha1-jXuhJMiCv9jkMmDGdHVRjQaJ5OU="
+  "resolved" "https://registry.npm.taobao.org/bignumber.js/download/bignumber.js-9.0.1.tgz"
+  "version" "9.0.1"
+
 "binary-extensions@^1.0.0":
   "integrity" "sha1-WYr+VHVbKGilMw0q/51Ou1Mgm2U="
   "resolved" "https://registry.nlark.com/binary-extensions/download/binary-extensions-1.13.1.tgz"
@@ -5538,6 +5543,13 @@
   "integrity" "sha1-597mbjXW/Bb3EP6R1c9p9w8IkR0="
   "resolved" "https://registry.nlark.com/jsesc/download/jsesc-0.5.0.tgz"
   "version" "0.5.0"
+
+"json-bigint@^1.0.0":
+  "integrity" "sha1-rlR4I6wMrYOYZn+M2e9HMPWwH/E="
+  "resolved" "https://registry.npm.taobao.org/json-bigint/download/json-bigint-1.0.0.tgz"
+  "version" "1.0.0"
+  dependencies:
+    "bignumber.js" "^9.0.0"
 
 "json-parse-better-errors@^1.0.1", "json-parse-better-errors@^1.0.2":
   "integrity" "sha1-u4Z8+zRQ5pEHwTHRxRS6s9yLyqk="

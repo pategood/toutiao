@@ -6,8 +6,8 @@ import store from './store'
 import FastClick from 'fastclick'
 
 // 全局样式
-import './styles/index.scss'
 import './plugins/vant.js'
+import './styles/index.scss'
 
 // 适配
 import 'amfe-flexible'
