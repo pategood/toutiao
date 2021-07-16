@@ -2,9 +2,9 @@
  * 封装 axios 请求模块
  */
 import axios from 'axios'
-import jsonBig from 'json-bigint'
-import store from '@/store'
-import router from '@/router'
+// import jsonBig from 'json-bigint'
+import store from '@/store/'
+// import router from '@/router'
 
 // 'axios'reate 方法：复制一个 axios
 const request = axios.create({
@@ -14,15 +14,15 @@ const request = axios.create({
 /**
  * 配置处理后端返回数据中超出 js 安全整数范围问题
  */
-request.defaults.transformResponse = [
-  function (data) {
-    try {
-      return jsonBig.parse(data)
-    } catch (err) {
-      return {}
-    }
-  }
-]
+// request.defaults.transformResponse = [
+//   function (data) {
+//     try {
+//       return jsonBig.parse(data)
+//     } catch (err) {
+//       return {}
+//     }
+//   }
+// ]
 
 // 请求拦截器
 request.interceptors.request.use(
@@ -40,7 +40,7 @@ request.interceptors.request.use(
   }
 )
 
-// 响应拦截器
+/* // 响应拦截器
 request.interceptors.response.use(
   // 响应成功进入第1个函数
   // 该函数的参数是响应对象
@@ -98,6 +98,6 @@ request.interceptors.response.use(
 
     return Promise.reject(error)
   }
-)
+) */
 
 export default request

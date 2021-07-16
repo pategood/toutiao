@@ -11,10 +11,12 @@ import {
   CellGroup,
   Form,
   CountDown,
-  Image as VanImage
+  Image as VanImage,
+  Grid, GridItem,
+  Dialog
 } from 'vant'
 
 Vue.use(Tabbar).use(Button).use(TabbarItem).use(Icon).use(NavBar).use(Field).use(Toast)
 
-Vue.use(Cell).use(Form).use(CountDown).use(VanImage)
+Vue.use(Cell).use(Form).use(CountDown).use(VanImage).use(Grid).use(GridItem).use(Dialog)
 Vue.use(CellGroup)
