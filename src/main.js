@@ -12,6 +12,8 @@ import './styles/index.scss'
 // 适配
 import 'amfe-flexible'
 
+import './utils/dayjs'
+
 Vue.config.productionTip = false
 
 FastClick.attach(document.body)

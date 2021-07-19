@@ -13,10 +13,15 @@ import {
   CountDown,
   Image as VanImage,
   Grid, GridItem,
-  Dialog
+  Dialog,
+  Tab, Tabs,
+  List,
+  PullRefresh,
+  Popup
 } from 'vant'
 
 Vue.use(Tabbar).use(Button).use(TabbarItem).use(Icon).use(NavBar).use(Field).use(Toast)
 
 Vue.use(Cell).use(Form).use(CountDown).use(VanImage).use(Grid).use(GridItem).use(Dialog)
-Vue.use(CellGroup)
+Vue.use(CellGroup).use(Tab).use(Tabs).use(List)
+Vue.use(PullRefresh).use(Popup)
