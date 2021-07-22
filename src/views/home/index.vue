@@ -34,7 +34,6 @@
         ref="childrenDom" @close="isShow=false"
         @update-active="onUpdateActive" />
     </van-popup>
-
   </div>
 </template>
 
@@ -45,27 +44,27 @@ import ChannelEdit from './components/channel-edit.vue'
 
 export default {
   name: 'HomeIndex',
-  data() {
+  data () {
     return {
       active: 0,
       channels: [], // 频道列表
       isShow: false
     }
   },
-  created() {
+  created () {
     this.loadChannels()
   },
   methods: {
-    async loadChannels() {
+    async loadChannels () {
       // 请求获取频道数据
       const { data } = await getUserChannels()
       // console.log(data)
       this.channels = data.data.channels
     },
-    onUpdateActive(index) {
+    onUpdateActive (index) {
       this.active = index
     },
-    resetEdit() {
+    resetEdit () {
       this.$refs.childrenDom.isEdit = false
     }
 
