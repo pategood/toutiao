@@ -26,11 +26,12 @@
     <!-- 汉堡按钮 -->
     <van-popup v-model="isShow" position="bottom"
       closeable
+      @click-close-icon="resetEdit"
       class="channel-edit-popup"
       get-container="body"
       style="height: 100%" >
       <channel-edit :user-channels="channels" :active="active"
-        @close="isShow=false"
+        ref="childrenDom" @close="isShow=false"
         @update-active="onUpdateActive" />
     </van-popup>
 
@@ -41,28 +42,33 @@
 import { getUserChannels } from '@/api/user'
 import ArticleList from './components/article-list.vue'
 import ChannelEdit from './components/channel-edit.vue'
+
 export default {
   name: 'HomeIndex',
-  data () {
+  data() {
     return {
       active: 0,
       channels: [], // 频道列表
       isShow: false
     }
   },
-  created () {
+  created() {
     this.loadChannels()
   },
   methods: {
-    async loadChannels () {
+    async loadChannels() {
       // 请求获取频道数据
       const { data } = await getUserChannels()
       // console.log(data)
       this.channels = data.data.channels
     },
-    onUpdateActive (index) {
+    onUpdateActive(index) {
       this.active = index
+    },
+    resetEdit() {
+      this.$refs.childrenDom.isEdit = false
     }
+
   },
   components: {
     ArticleList,
@@ -88,7 +94,6 @@ export default {
       font-size: 14px;
     }
   }
-
   .channel-tabs {
     ::v-deep .van-tab {
       border-right: 1px solid #edeff3;
@@ -101,12 +106,10 @@ export default {
       background: #3296fa;
     }
   }
-
   .wap-nav-placeholder {
     width: 33px;
     flex-shrink: 0;
   }
-
   .wap-nav-wrap {
     position: fixed;
     right: 0;

@@ -34,9 +34,10 @@
 </template>
 <script>
 import { getAllChannels } from '@/api/channel'
+
 export default {
   name: '',
-  data () {
+  data() {
     return {
       allChannels: [],
       isEdit: false
@@ -55,12 +56,8 @@ export default {
   },
   computed: {
     // 推荐的频道列表 筛选剩余频道
-    recommendChannels () {
-      return this.allChannels.filter(channel => {
-        return !this.userChannels.find(userChannel => {
-          return userChannel.id === channel.id
-        })
-      })
+    recommendChannels() {
+      return this.allChannels.filter((channel) => !this.userChannels.find((userChannel) => userChannel.id === channel.id))
     }
     /*
     const arr = []
@@ -81,20 +78,20 @@ export default {
 */
 
   },
-  created () {
+  created() {
     this.loadAllChannels()
   },
   methods: {
-    async loadAllChannels () {
+    async loadAllChannels() {
       const { data } = await getAllChannels()
       this.allChannels = data.data.channels
     },
-    onAdd (channel) {
+    onAdd(channel) {
       if (this.isEdit) {
         this.userChannels.push(channel)
       }
     },
-    onUserChannelClick (index) {
+    onUserChannelClick(index) {
       if (this.isEdit && index !== 0) {
         // 编辑状态 删除
         this.deleteChannel(index)
@@ -104,15 +101,14 @@ export default {
       }
     },
     // 删除频道
-    deleteChannel (index) {
+    deleteChannel(index) {
       if (index <= this.active) {
         this.$emit('update-active', this.active - 1)
       }
       this.userChannels.splice(index, 1)
     },
-    switchChannel (index) {
+    switchChannel(index) {
       this.$emit('close')
-      // this.isEdit = false
       this.$emit('update-active', index)
     }
   }
