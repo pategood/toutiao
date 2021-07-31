@@ -63,7 +63,7 @@ import { login, sendSms } from '@/api/user'
 
 export default {
   name: 'LoginIndex',
-  data () {
+  data() {
     return {
       user: {
         mobile: '17090086870',
@@ -84,7 +84,7 @@ export default {
     }
   },
   methods: {
-    async onLogin () {
+    async onLogin() {
       this.$toast.loading({
         message: '登录...',
         forbidClick: true
@@ -100,14 +100,14 @@ export default {
       }
     },
 
-    onFailed (error) {
+    onFailed(error) {
       // console.log(error)
       if (error.errors[0]) {
         this.$toast({ message: error.errors[0].message, position: 'top' })
       }
     },
 
-    async onSendSms () {
+    async onSendSms() {
       // 校验手机号  通过后才发送验证码 并倒计时   结束后 要隐藏倒计时
       try {
         await this.$refs['login-form'].validate('mobile')

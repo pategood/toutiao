@@ -16,13 +16,13 @@
 <script>
 export default {
   name: 'LayoutIndex',
-  data () {
+  data() {
     return {
       active: 0
     }
   },
   methods: {
-    onChange (event) {
+    onChange(event) {
     // event.detail 的值为当前选中项的索引
       this.setData({ active: event.detail })
     }

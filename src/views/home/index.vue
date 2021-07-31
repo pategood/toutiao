@@ -2,10 +2,7 @@
   <div class="home-container">
     <!-- 导航栏 -->
     <van-nav-bar class="app-nav-bar">
-      <van-button class="search-btn" slot="title" icon="search" type="info"
-        @click="$router.push('/search')"
-        round
-        size="small">
+      <van-button class="search-btn" slot="title" icon="search" type="info" to="/search" round size="small">
         搜索
       </van-button>
     </van-nav-bar>
@@ -42,6 +39,8 @@
 import { getUserChannels } from '@/api/user'
 import ArticleList from './components/article-list.vue'
 import ChannelEdit from './components/channel-edit.vue'
+import { mapState } from 'vuex'
+import { getItem } from '@/utils/storage'
 
 export default {
   name: 'HomeIndex',
@@ -52,15 +51,31 @@ export default {
       isShow: false
     }
   },
+  computed: {
+    ...mapState(['user'])
+  },
   created() {
     this.loadChannels()
   },
   methods: {
     async loadChannels() {
-      // 请求获取频道数据
-      const { data } = await getUserChannels()
-      // console.log(data)
-      this.channels = data.data.channels
+      let channels = []
+      if (this.user) {
+        // 请求获取频道数据
+        const { data } = await getUserChannels()
+        channels = data.data.channels
+      } else {
+        console.log('没有登录')
+        const localChannels = getItem('user-channels')
+        if (localChannels) {
+          channels = localChannels
+        } else {
+          // 请求获取频道数据
+          const { data } = await getUserChannels()
+          channels = data.data.channels
+        }
+      }
+      this.channels = channels
     },
     onUpdateActive(index) {
       this.active = index

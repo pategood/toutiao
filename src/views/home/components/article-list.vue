@@ -35,7 +35,7 @@ export default {
       require: true
     }
   },
-  data () {
+  data() {
     return {
       articleList: [],
       loading: false,
@@ -48,7 +48,7 @@ export default {
     }
   },
   methods: {
-    async onLoad () {
+    async onLoad() {
       // 异步更新数据
       const { data } = await getArticles({
         channel_id: this.channel.id, // 频道ID
@@ -65,7 +65,7 @@ export default {
         this.finished = true
       }
     },
-    async onRefresh () {
+    async onRefresh() {
       // 下拉刷新展示loading状态
       // 请求数据后将数据放到列表内(往顶部追加)
       const { data } = await getArticles({

@@ -3,26 +3,32 @@ module.exports = {
     env: {
         node: true
     },
-    extends: ['plugin:vue/essential', '@vue/standard'],
+    extends: ["plugin:vue/essential", "@vue/standard"],
     parserOptions: {
-        parser: 'babel-eslint'
+        parser: "babel-eslint"
     },
     rules: {
-        'space-before-function-paren': 0,
-        semi: ['error', 'never'], // 禁用 分号
-        'max-len': ['error', 150], // 单行代码最大长度
-        'no-tabs': 'off', // 最后一行为空
-        indent: [
-            0, 2, { SwitchCase: 1 }
+        // 'space-before-function-paren': 0,
 
-            // "off",
-            // "tab",
-            // 强制统一缩进
+        "space-before-blocks": [2, "always"], // 代码块前至少有一个空格
+        "space-before-function-paren": [2, "never"], // 函数名称或 function 关键字与开头括号之间不允许有空格
+        semi: ["error", "never"], // 禁用 分号
+        "max-len": ["error", 150], // 单行代码最大长度
+        "no-tabs": "off", // 最后一行为空
+        indent: [
+            2,
+            2,
+            {
+                SwitchCase: 1 // case 针对 switch 语句使用 2 个空格缩进
+            }
         ],
-        'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-        'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off'
+        // "off",
+        // "tab",
+        // 强制统一缩进
+        "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
+        "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off"
     }
-}
+};
 
 // module.exports = {
 //   root: true,

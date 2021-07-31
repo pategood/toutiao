@@ -89,7 +89,7 @@ export default {
       const { data } = await getAllChannels()
       this.allChannels = data.data.channels
     },
-     async onAdd (channel) {
+    async onAdd(channel) {
       if (this.isEdit) {
         this.userChannels.push(channel)
         if (this.user) {
