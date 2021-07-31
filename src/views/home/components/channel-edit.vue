@@ -15,7 +15,7 @@
         :icon="(isEdit && index !== 0) ? 'clear' : ''"
         v-for="(channel,index) in userChannels"
         :key="index" :text="channel.name"
-        @click="onUserChannelClick(index)"
+        @click="onUserChannelClick(channel,index)"
         />
     </van-grid>
 
@@ -33,7 +33,9 @@
   </div>
 </template>
 <script>
-import { getAllChannels } from '@/api/channel'
+import { getAllChannels, addUserChannel, deleteUserChannel } from '@/api/channel'
+import { mapState } from 'vuex'
+import { setItem } from '@/utils/storage'
 
 export default {
   name: '',
@@ -55,6 +57,7 @@ export default {
     }
   },
   computed: {
+    ...mapState(['user']),
     // 推荐的频道列表 筛选剩余频道
     recommendChannels() {
       return this.allChannels.filter((channel) => !this.userChannels.find((userChannel) => userChannel.id === channel.id))
@@ -86,30 +89,46 @@ export default {
       const { data } = await getAllChannels()
       this.allChannels = data.data.channels
     },
-    onAdd(channel) {
+     async onAdd (channel) {
       if (this.isEdit) {
         this.userChannels.push(channel)
+        if (this.user) {
+          await addUserChannel({
+            channels: [{
+              id: channel.id, seq: this.userChannels.length
+            }]
+          })
+        } else {
+          setItem('user-channels', this.userChannels)
+        }
       }
     },
-    onUserChannelClick(index) {
+    onUserChannelClick(channel, index) {
       if (this.isEdit && index !== 0) {
         // 编辑状态 删除
-        this.deleteChannel(index)
+        this.deleteChannel(channel, index)
       } else {
         // 非编辑  添加
         this.switchChannel(index)
       }
     },
     // 删除频道
-    deleteChannel(index) {
+    async deleteChannel(channel, index) {
       if (index <= this.active) {
         this.$emit('update-active', this.active - 1)
       }
       this.userChannels.splice(index, 1)
+      if (this.user) {
+        // 登录 持久化到线上
+        await deleteUserChannel(channel.id)
+      } else {
+        setItem('user-channels', this.userChannels)
+      }
     },
     switchChannel(index) {
       this.$emit('close')
       this.$emit('update-active', index)
+      this.isEdit = false
     }
   }
 }

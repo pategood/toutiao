@@ -68,7 +68,6 @@ export default {
     resetEdit() {
       this.$refs.childrenDom.isEdit = false
     }
-
   },
   components: {
     ArticleList,

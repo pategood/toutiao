@@ -1,19 +1,27 @@
 module.exports = {
-  root: true,
-  env: {
-    node: true
-  },
-  extends: [
-    'plugin:vue/essential',
-    '@vue/standard'
-  ],
-  parserOptions: {
-    parser: 'babel-eslint'
-  },
-  rules: {
-    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off'
-  }
+    root: true,
+    env: {
+        node: true
+    },
+    extends: ['plugin:vue/essential', '@vue/standard'],
+    parserOptions: {
+        parser: 'babel-eslint'
+    },
+    rules: {
+        'space-before-function-paren': 0,
+        semi: ['error', 'never'], // 禁用 分号
+        'max-len': ['error', 150], // 单行代码最大长度
+        'no-tabs': 'off', // 最后一行为空
+        indent: [
+            0, 2, { SwitchCase: 1 }
+
+            // "off",
+            // "tab",
+            // 强制统一缩进
+        ],
+        'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+        'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off'
+    }
 }
 
 // module.exports = {
