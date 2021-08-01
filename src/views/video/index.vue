@@ -1,11 +1,11 @@
 <template>
-  <div>
-    <img :src="img[0].gif" alt="">
-    <img src="@/assets/img/mobile.png" alt="">
+  <div class="container" >
+    <ele-card />
   </div>
 </template>
 
 <script>
+import eleCard from './components/eleCard.vue'
 export default {
   name: 'VideoIndex',
   data() {
@@ -14,7 +14,11 @@ export default {
         gif: '@/assets/gif/FomJGkLDCiGINEzgA3Mq-GOG98jo'
       }]
     }
+  },
+  components: {
+    eleCard
   }
+
 }
 </script>
 
