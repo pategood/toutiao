@@ -4,19 +4,19 @@
     <form action="/">
       <van-search v-model="SearchText"
       shape="round"
-      background="#48d594"
+      background="#8cc5ff"
       show-action
-      @search="onSearch"
+      @search="onSearch(SearchText)"
       @cancel="onCancel"
       @focus="isResultShow = false"
       placeholder="请输入搜索关键词" />
     </form>
 
     <!-- 搜索结果 -->
-    <search-result v-if="isResultShow" />
+    <search-result v-if="isResultShow" :search-text='SearchText'/>
 
     <!-- 联想建议 -->
-    <search-suggestion v-else-if="SearchText" :search-text='SearchText' />
+    <search-suggestion v-else-if="SearchText" :search-text='SearchText' @search="onSearch" />
 
     <!-- 历史纪录 -->
     <search-history  v-else />
@@ -44,11 +44,13 @@ export default {
     searchResult
   },
   methods: {
-    onSearch() {
-      console.log()
+    onSearch(SearchText) {
+      this.SearchText = SearchText
+      this.isResultShow = true
+      // console.log(val + '搜索结果出来显示')
     },
     onCancel() {
-      console.log('取消')
+      console.log('返回到首页')
       this.$router.back()
     }
   },

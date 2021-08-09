@@ -15,6 +15,7 @@ module.exports = {
         semi: ["error", "never"], // 禁用 分号
         "max-len": ["error", 150], // 单行代码最大长度
         "no-tabs": "off", // 最后一行为空
+        'prefer-const': 'off',
         indent: [
             2,
             2,

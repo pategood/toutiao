@@ -1,11 +1,14 @@
 <template>
   <div class="container" >
     <ele-card />
+    <test-component  />
   </div>
 </template>
 
 <script>
 import eleCard from './components/eleCard.vue'
+import testComponent from '@/components/common/testComponent.vue'
+
 export default {
   name: 'VideoIndex',
   data() {
@@ -16,7 +19,8 @@ export default {
     }
   },
   components: {
-    eleCard
+    eleCard,
+    testComponent
   }
 
 }

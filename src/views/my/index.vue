@@ -79,20 +79,20 @@ import { getCurrentUser } from '@/api/user'
 
 export default {
   name: 'MyIndex',
-  data () {
+  data() {
     return {
       userImg: '',
       currentUser: {}
     }
   },
-  created () {
+  created() {
     this.loadCurrentUser()
   },
   computed: {
     ...mapState(['user'])
   },
   methods: {
-    onLogout () {
+    onLogout() {
       this.$dialog.confirm({
         title: '退出提示',
         message: '确定退出吗?'
@@ -106,7 +106,7 @@ export default {
           console.log(e)
         })
     },
-    async loadCurrentUser () {
+    async loadCurrentUser() {
       const { data } = await getCurrentUser()
       this.currentUser = data.data
     }
