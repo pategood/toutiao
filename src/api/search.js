@@ -22,3 +22,13 @@ export function getSearchResult(params) {
         params
     })
 }
+
+/**
+ * 获取用户搜索历史
+ */
+export function getUserSearchHistory() {
+    return request({
+        method: "GET",
+        url: "/app/v1_0/search/histories"
+    })
+}
