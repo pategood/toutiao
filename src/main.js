@@ -18,6 +18,18 @@ Vue.config.productionTip = false
 
 FastClick.attach(document.body)
 
+// router.beforeEach((to,from,next)=>{
+// 	if(to.meta.login_require){
+// 		if(store.state.user){
+// 			next()
+// 		}else{
+// 			next({ path: "/login" });
+// 		}
+// 	}else{
+// 		next()
+// 	}
+// })
+
 new Vue({
   router,
   store,

@@ -45,8 +45,8 @@
       </van-grid>
     </van-cell-group>
 
-    <div class="not-login" v-else>
-      <div @click="$router.push('/login')">
+    <div class="not-login" v-else @click="$router.push('/login')">
+      <div>
         <img class="mobile" src="@/assets/img/mobile.png" >
       </div>
       <div class="text">登录/注册</div>
@@ -178,6 +178,8 @@ export default {
       height: 66px;
     }
     .text {
+      cursor: pointer;
+      cursor: hand;
       color: #fff;
       font-size: 14px;
     }
