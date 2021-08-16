@@ -127,7 +127,7 @@ export default {
   .wap-nav-wrap {
     position: fixed;
     right: 0;
-    width: 33px;
+    width: 43px;
     height: 43px;
     background-color: #fff;
     display: flex;
