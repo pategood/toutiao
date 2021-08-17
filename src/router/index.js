@@ -48,7 +48,7 @@ const routes = [
         name: "my",
         component: () => import("@/views/my/"),
         meta: {
-          login_require: true,
+          login_require: false,
           title: "MY页",
           index: 3
         }
@@ -66,8 +66,13 @@ const routes = [
     // 将动态路由参数映射到组件的props
     props: true,
     component: () => import("@/views/article/")
+  },
+  {
+    path: "/test",
+    name: "test",
+    component: () => import("@/views/test/")
   }
-]
+];
 
 const router = new VueRouter({
   routes
