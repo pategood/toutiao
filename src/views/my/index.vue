@@ -86,7 +86,9 @@ export default {
     }
   },
   created() {
-    this.loadCurrentUser()
+    if (this.$store.state.user.token) {
+      this.loadCurrentUser()
+    }
   },
   computed: {
     ...mapState(['user'])

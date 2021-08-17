@@ -20,11 +20,18 @@ import {
     List,
     PullRefresh,
     Popup,
-    Search
+    Search,
+    ImagePreview
 } from "vant";
+
 
 Vue.use(Tabbar).use(Button).use(TabbarItem).use(Icon).use(NavBar).use(Field).use(Toast)
 
 Vue.use(Cell).use(Form).use(CountDown).use(VanImage).use(Grid).use(GridItem).use(Dialog)
-Vue.use(CellGroup).use(Tab).use(Tabs).use(List).use(Search)
+Vue.use(CellGroup)
+  .use(Tab)
+  .use(Tabs)
+  .use(List)
+  .use(Search)
+  .use(ImagePreview);
 Vue.use(PullRefresh).use(Popup)
