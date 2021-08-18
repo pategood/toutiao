@@ -1,45 +1,54 @@
 <template>
-  <div class="article-container">
-    <van-nav-bar class="app-nav-bar" title="文章详情" left-arrow @click-left="$router.back()">
+  <div class="article-index">
+    <van-nav-bar class="app-nav-bar" title="文章详情" left-arrow @click-left="$router.back()"></van-nav-bar>
+    <h1 class="header_title">
+        {{article.title}}(postman)
+      </h1>
+    <div class="article-container">
 
-    </van-nav-bar>
-    <h1 class="header_title">{{article.title}}(postman)</h1>
+      <van-cell center class="user-info">
+        <div slot="title" class="nickName" >{{article.aut_name}}</div>
+        <van-image class="avatar" slot="icon" width="35" height="35" round fit="cover" :src="article.aut_photo" />
+        <div slot="label" class="pubdate">{{article.pubdate | relativeTime}}</div>
+        <van-button class="follow-btn" :loading="isFollowLoading"
+        :type="article.is_followed ? 'default': 'info' "
+        :icon="article.is_followed ? '': 'plus'" round size="small" @click="onFollow"
+        >{{article.is_followed ? '已关注' : '关注'}}</van-button>
+      </van-cell>
 
-    <van-cell center class="user-info">
-      <div slot="title" class="nickName" >{{article.aut_name}}</div>
-      <van-image class="avatar" slot="icon" width="35" height="35" round fit="cover" :src="article.aut_photo" />
-      <div slot="label" class="pubdate">{{article.pubdate | relativeTime}}</div>
-      <van-button class="follow-btn" :loading="isFollowLoading"
-      :type="article.is_followed ? 'default': 'info' "
-      :icon="article.is_followed ? '': 'plus'" round size="small" @click="onFollow"
-      >{{article.is_followed ? '已关注' : '关注'}}</van-button>
-    </van-cell>
-<!--  -->
-    <!-- <div class="article-header">
-      <div class="left">
-        <img src="http://img.yzcdn.cn/vant/cat.jpeg" class="head-img"  alt="用户头像" />
-        <div class="intro">
-          <p class="nick">天涯小飞贼</p>
-          <p class="releaseTime">14小时前</p>
+       <div class="content markdown-body" v-html="article.content" ref="article-content"></div>
+      <!-- <div class="article-header">
+        <div class="left">
+          <img src="http://img.yzcdn.cn/vant/cat.jpeg" class="head-img"  alt="用户头像" />
+          <div class="intro">
+            <p class="nick">天涯小飞贼</p>
+            <p class="releaseTime">14小时前</p>
+          </div>
         </div>
-      </div>
 
-      <div class="right">
-        <button class="btn"><span v-if="true">+关注</span><span v-else>已关注</span></button>
-      </div>
+        <div class="right">
+          <button class="btn"><span v-if="true">+关注</span><span v-else>已关注</span></button>
+        </div>
 
-    </div> -->
+      </div> -->
+    </div>
 
-  <van-button class="comment-btn" type="default" round size="small">写评论</van-button>
-  <van-icon name="comment-o" info="123" color="#777" />
-  <van-icon :color="article.is_collected ? 'orange':''" :name="article.is_collected ? 'star':'star-o'" />
-    <div class="content markdown-body" v-html="article.content" ref="article-content"></div>
+    <div class="article-footer">
+      <van-button class="comment-btn" type="default" round size="small">写评论</van-button>
+      <van-icon name="comment-o" badge="123" color="#777" />
+      <van-icon @click="onCollect" :loading="isCollectLoading"
+        :color="article.is_collected ? 'orange':'#777'" :name="article.is_collected ? 'star':'star-o'" />
+      <van-icon @click="onLike"
+        :name="article.attitude===1?  'good-job': 'good-job-o'"  :color="article.attitude ? '#f86934':'#777'"
+       />
+      <van-icon name="share" color="#777" />
+    </div>
   </div>
 </template>
 <script>
 import './github-markdown.css'
-import { getArticle } from '@/api/article.js'
-// import { addFollow, undoFollow } from '@/api/user.js'
+import { getArticle, addCollect, undoCollect, addLike, deleteLike } from '@/api/article.js'
+import { addFollow, undoFollow } from '@/api/user.js'
 import { ImagePreview } from 'vant'
 import { throttle } from 'lodash'
 
@@ -48,7 +57,8 @@ export default {
   data() {
     return {
       article: {},
-      isFollowLoading: false
+      isFollowLoading: false,
+      isCollectLoading: false
     }
   },
   props: {
@@ -89,71 +99,157 @@ export default {
         })
       }
     },
-    onFollow() {
-      // console.log(!(this.$store.state.user && this.$store.state.user.token))
-      (throttle(function() {
-        console.log('zhix')
-      }, 200, {
-        leading: true,
-        trailing: false
-      }))
-      debugger
-      // (throttle(async function() {
-      //   if (this.$store.state.user && this.$store.state.user.token) {
-      //     try {
-      //       this.isFollowLoading = true
-      //       if (this.article.is_followed) {
-      //         await undoFollow(this.article.aut_id)
-      //       } else {
-      //         await addFollow(this.article.aut_id)
-      //       }
-      //       this.article.is_followed = !this.article.is_followed
-      //       this.isFollowLoading = false
-      //     } catch (err) {
-      //       this.isFollowLoading = false
-      //       console.log(err)
-      //     }
-      //   } else {
-      //     this.$toast('用户未登录')
-      //     // this.$router.push('/login')
-      //   }
-      // }, 2000, {
-      //   leading: true,
-      //   trailing: false
-      // }))
-    }
+
+    onFollow: throttle(async function() {
+      if (this.$store.state.user && this.$store.state.user.token) {
+        try {
+          this.isFollowLoading = true
+          if (this.article.is_followed) {
+            await undoFollow(this.article.aut_id)
+          } else {
+            await addFollow(this.article.aut_id)
+          }
+          this.loadArticle()
+          // this.article.is_followed = !this.article.is_followed
+          this.$toast.success(`${this.article.is_followed ? '关注成功' : '取消关注'}`)
+          this.isFollowLoading = false
+        } catch (e) {
+          this.isFollowLoading = false
+          this.$toast.fail({
+            message: '接口报错',
+            duration: 1000,
+            forbidClick: true // 禁止背景点击
+          })
+        }
+      } else {
+        this.$toast('用户未登录')
+        // this.$router.push('/login')
+      }
+    }, 1500, {
+      leading: true,
+      trailing: false
+    }),
+
+    // 收藏
+    onCollect: throttle(async function() {
+      if (this.$store.state.user && this.$store.state.user.token) {
+        // this.$toast.loading({
+        //   message: '加载中',
+        //   forbidClick: true // 禁止背景点击
+        // })
+        try {
+          this.isCollectLoading = true
+          if (this.article.is_collected) {
+            await undoCollect(this.articleId)
+          } else {
+            await addCollect(this.articleId)
+          }
+          // this.article.is_collected = !this.article.is_collected
+          // this.loadArticle()
+          this.$toast.success(`${this.article.is_collected ? '' : '取消'}收藏成功`)
+          this.isCollectLoading = false
+        } catch (e) {
+          this.isCollectLoading = false
+          // this.$toast.fail({
+          //   message: '接口报错',
+          //   duration: 1000,
+          //   forbidClick: true // 禁止背景点击
+          // })
+        }
+      } else {
+        this.$toast('用户未登录')
+        // this.$router.push('/login')
+      }
+    }, 2000, {
+      leading: true,
+      trailing: false
+    }),
+    onLike: throttle(async function() {
+      if (this.$store.state.user && this.$store.state.user.token) {
+        try {
+          if (this.article.attitude === 1) {
+            await deleteLike(this.articleId)
+            this.article.attitude = -1
+          } else {
+            await addLike(this.articleId)
+            this.article.attitude = 1
+          }
+          // this.loadArticle()
+          this.$toast.success(`${this.article.attitude === 1 ? '点赞成功' : '取消点赞'}`)
+        } catch (e) {
+          this.$toast.fail({
+            message: '接口报错',
+            duration: 1000,
+            forbidClick: true // 禁止背景点击
+          })
+        }
+      } else {
+        this.$toast('用户未登录')
+        // this.$router.push('/login')
+      }
+    }, 2000, {
+      leading: true,
+      trailing: false
+    })
   }
 }
 </script>
 <style lang='scss' scoped>
-.article-container {
+.article-index {
+  width: 100%;
   .header_title {
+    box-sizing: border-box;
     font-size: 20px;
     color: #3a343a;
-    padding: 9px 12px;
+    padding: 9px 20px;
     margin-top: 10px;
     margin-bottom: 10px;
+    word-break:break-all;
+    width: 100%; // 必须指定宽度
+    text-overflow: ellipsis;//超出文字显示为省略号
+    overflow: hidden;//隐藏超出部分
+    -webkit-line-clamp: 2;//限制行数
   }
-  .user-info {
-    .avatar {
-      width: 35px;
-      height: 35px;
-      margin-left: 8px;
+
+  .article-container {
+    // min-height: calc(100vh - 50px);
+
+      // word-break:break-all;
+      // // 弹性盒模型
+      // display : -webkit-box;
+      // // 隐藏部分变成省略号 …
+      // text-overflow: ellipisis;
+      // // 多余部分隐藏
+      // overflow:hidden;
+      // -webkit-line-clamp: 1;
+      // // 垂直排列（最后一行也填充满
+      // -webkit-box-orient: vertical;
+
+    .user-info {
+      .avatar {
+        width: 35px;
+        height: 35px;
+        margin-left: 8px;
+      }
+      .nickName {
+        font-size: 12px;
+        color: #333333;
+      }
+      .pubdate {
+        font-size: 11px;
+        color: #b4b4b4;
+      }
+      .follow-btn {
+        width: 70px;
+        height: 29px;
+      }
     }
-    .nickName {
-      font-size: 12px;
-      color: #333333;
-    }
-    .pubdate {
-      font-size: 11px;
-      color: #b4b4b4;
-    }
-    .follow-btn {
-      width: 70px;
-      height: 29px;
-    }
+  }
+  .article-footer {
+    height: 30px;
   }
 }
+
 ul {
   list-style: unset;
 }

@@ -19,7 +19,7 @@ request.defaults.transformResponse = [
     try {
       return jsonBig.parse(data)
     } catch (err) {
-      return {}
+      return data
     }
   }
 ]

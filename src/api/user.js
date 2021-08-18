@@ -63,3 +63,4 @@ export const undoFollow = userId => {
     url: `/app/v1_0/user/followings/${userId}`
   })
 }
+
