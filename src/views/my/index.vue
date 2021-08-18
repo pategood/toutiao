@@ -86,7 +86,7 @@ export default {
     }
   },
   created() {
-    if (this.$store.state.user.token) {
+    if (this.$store.state.user) {
       this.loadCurrentUser()
     }
   },

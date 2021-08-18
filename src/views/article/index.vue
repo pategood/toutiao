@@ -41,7 +41,7 @@ import './github-markdown.css'
 import { getArticle } from '@/api/article.js'
 // import { addFollow, undoFollow } from '@/api/user.js'
 import { ImagePreview } from 'vant'
-// import { debounce } from 'lodash'
+import { throttle } from 'lodash'
 
 export default {
   name: 'ArticleIndex',
@@ -89,36 +89,38 @@ export default {
         })
       }
     },
-    async onFollow() {
-      // () => {
-      //   debounce(() => {
+    onFollow() {
+      // console.log(!(this.$store.state.user && this.$store.state.user.token))
+      (throttle(function() {
+        console.log('zhix')
+      }, 200, {
+        leading: true,
+        trailing: false
+      }))
+      debugger
+      // (throttle(async function() {
+      //   if (this.$store.state.user && this.$store.state.user.token) {
+      //     try {
+      //       this.isFollowLoading = true
+      //       if (this.article.is_followed) {
+      //         await undoFollow(this.article.aut_id)
+      //       } else {
+      //         await addFollow(this.article.aut_id)
+      //       }
+      //       this.article.is_followed = !this.article.is_followed
+      //       this.isFollowLoading = false
+      //     } catch (err) {
+      //       this.isFollowLoading = false
+      //       console.log(err)
+      //     }
+      //   } else {
       //     this.$toast('用户未登录')
-      //   }, 1000)
-      // }
-
-      // debounce(() => {
-      //   this.$toast('用户未登录')
-      // }, 1000)
-    //   if (this.$store.state.user.token) {
-    //     try {
-    //       this.isFollowLoading = true
-    //       if (this.article.is_followed) {
-    //         await undoFollow(this.article.aut_id)
-    //       } else {
-    //         await addFollow(this.article.aut_id)
-    //       }
-    //       this.article.is_followed = !this.article.is_followed
-    //       this.isFollowLoading = false
-    //     } catch (err) {
-    //       this.isFollowLoading = false
-    //       console.log(err)
-    //     }
-    //   } else {
-    //     debounce(() => {
-    //       this.$toast('用户未登录')
-    //     }, 1000)
-    //     // this.$router.push('/login')
-    //   }
+      //     // this.$router.push('/login')
+      //   }
+      // }, 2000, {
+      //   leading: true,
+      //   trailing: false
+      // }))
     }
   }
 }
