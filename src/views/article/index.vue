@@ -1,11 +1,11 @@
 <template>
   <div class="article-index">
     <van-nav-bar class="app-nav-bar" title="文章详情" left-arrow @click-left="$router.back()"></van-nav-bar>
-    <h1 class="header_title">
-        {{article.title}}(postman)
-      </h1>
-    <div class="article-container">
 
+    <div class="article-container">
+      <h1 class="header_title">
+          {{article.title}}(postman)
+      </h1>
       <van-cell center class="user-info">
         <div slot="title" class="nickName" >{{article.aut_name}}</div>
         <van-image class="avatar" slot="icon" width="35" height="35" round fit="cover" :src="article.aut_photo" />
@@ -15,8 +15,10 @@
         :icon="article.is_followed ? '': 'plus'" round size="small" @click="onFollow"
         >{{article.is_followed ? '已关注' : '关注'}}</van-button>
       </van-cell>
+      <div class="content markdown-body" v-html="article.content" ref="article-content"></div>
 
-       <div class="content markdown-body" v-html="article.content" ref="article-content"></div>
+      <!-- 文章评论列表 -->
+      <review-list />
       <!-- <div class="article-header">
         <div class="left">
           <img src="http://img.yzcdn.cn/vant/cat.jpeg" class="head-img"  alt="用户头像" />
@@ -47,6 +49,7 @@
 </template>
 <script>
 import './github-markdown.css'
+import reviewList from './components/reviewList'
 import { getArticle, addCollect, undoCollect, addLike, deleteLike } from '@/api/article.js'
 import { addFollow, undoFollow } from '@/api/user.js'
 import { ImagePreview } from 'vant'
@@ -67,7 +70,9 @@ export default {
       required: true
     }
   },
-  components: {},
+  components: {
+    reviewList
+  },
   created() {
     this.loadArticle()
   },
