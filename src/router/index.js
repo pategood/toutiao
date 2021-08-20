@@ -7,7 +7,8 @@ const routes = [
   {
     path: "/login",
     name: "login",
-    component: () => import("@/views/login")
+    component: () => import("@/views/login"),
+    meta: { index: 1 }
   },
   {
     path: "/",
@@ -20,7 +21,7 @@ const routes = [
         meta: {
           login_require: false,
           title: "主页",
-          index: 1
+          meta: { index: 0 }
         }
       },
       {
@@ -30,7 +31,7 @@ const routes = [
         meta: {
           login_require: false,
           title: "QA页",
-          index: 2
+          index: 0
         }
       },
       {
@@ -40,7 +41,7 @@ const routes = [
         meta: {
           login_require: false,
           title: "视频页",
-          index: 3
+          index: 0
         }
       },
       {
@@ -50,7 +51,7 @@ const routes = [
         meta: {
           login_require: false,
           title: "MY页",
-          index: 3
+          index: 0
         }
       }
     ]
@@ -58,14 +59,18 @@ const routes = [
   {
     path: "/search",
     name: "search",
-    component: () => import("@/views/search/")
+    component: () => import("@/views/search/"),
+    meta: { index: 1 }
   },
   {
     path: "/article/:articleId",
     name: "article",
     // 将动态路由参数映射到组件的props
     props: true,
-    component: () => import("@/views/article/")
+    component: () => import("@/views/article/"),
+    meta: {
+      index: 2
+    }
   },
   {
     path: "/test",
