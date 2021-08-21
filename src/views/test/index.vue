@@ -16,12 +16,12 @@
 <script>
 import eleCard from './components/eleCard.vue'
 import testComponent from '@/components/common/testComponent.vue'
-// import VueDraggableResizable from 'vue-draggable-resizable'
-import VueDraggableResizable from '@/components/common/vue-draggable-resizable/index.vue'
-import 'vue-draggable-resizable/dist/VueDraggableResizable.css'
+import VueDraggableResizable from 'vue-draggable-resizable'
+// import VueDraggableResizable from '@/components/common/vue-draggable-resizable/index.vue'
+// import 'vue-draggable-resizable/dist/VueDraggableResizable.css'
 
 export default {
-  name: 'VideoIndex',
+  name: 'testIndex',
   data() {
     return {
       img: [{
