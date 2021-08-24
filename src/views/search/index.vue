@@ -74,6 +74,7 @@ export default {
     },
     onCancel() {
       console.log('返回到首页')
+      this.isResultShow = false
       this.$router.back()
     },
     async getUserHistory() {

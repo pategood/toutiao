@@ -218,18 +218,12 @@ export default {
 
   .article-container {
     // min-height: calc(100vh - 50px);
-
-      // word-break:break-all;
-      // // 弹性盒模型
-      // display : -webkit-box;
-      // // 隐藏部分变成省略号 …
-      // text-overflow: ellipisis;
-      // // 多余部分隐藏
-      // overflow:hidden;
-      // -webkit-line-clamp: 1;
-      // // 垂直排列（最后一行也填充满
-      // -webkit-box-orient: vertical;
-
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 46px;
+    bottom: 44px;
+    overflow: auto;
     .user-info {
       .avatar {
         width: 35px;
@@ -251,7 +245,32 @@ export default {
     }
   }
   .article-footer {
-    height: 30px;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    box-sizing: border-box;
+    height: 44px;
+    border-top: 1px solid #d8d8d8;
+    background-color: #fff;
+    .comment-btn {
+      width: 141px;
+      height: 23px;
+      border: 1px solid #eeeeee;
+      font-size: 15px;
+      line-height: 23px;
+      color: #a7a7a7;
+    }
+    .van-icon {
+      font-size: 20px;
+      .van-info {
+        font-size: 11px;
+        background-color: #e22829;
+      }
+    }
   }
 }
 
@@ -310,4 +329,5 @@ ul {
     }
   }
 }
+
 </style>
