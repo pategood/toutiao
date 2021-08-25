@@ -3,13 +3,33 @@
     <!-- 子路由出口 -->
     <router-view />
     <!-- 底部导航栏 -->
-    <van-tabbar v-model="active" route>
+    <van-tabbar v-model="active" route safe-area-inset-bottom>
       <van-tabbar-item icon="home-o" to="/">首页</van-tabbar-item>
       <van-tabbar-item icon="comment-o" to="/qa">问答</van-tabbar-item>
+      <van-popover v-model="showPopover" trigger="click" placement="top">
+        <van-grid
+          square
+          clickable
+          :border="false"
+          column-num="4"
+          style="width: 240px;"
+        >
+          <van-grid-item
+            text="开直播" icon="photo-o" @click="showPopover = false"/>
+          <van-grid-item
+            text="拍照" icon="photo-o" @click="showPopover = false"/>
+          <van-grid-item
+            text="上传" icon="photo-o" @click="showPopover = false"/>
+          <van-grid-item
+            text="模板制作" icon="photo-o" @click="showPopover = false"/>
+        </van-grid>
+          <template #reference>
+          <van-button type="primary">自定义内容</van-button>
+        </template>
+      </van-popover>
       <van-tabbar-item icon="video-o" to="/video">视频</van-tabbar-item>
       <van-tabbar-item icon="manager-o" to="/my">我的</van-tabbar-item>
     </van-tabbar>
-
   </div>
 </template>
 
@@ -18,17 +38,21 @@ export default {
   name: 'LayoutIndex',
   data() {
     return {
-      active: 0
+      active: 0,
+      showPopover: false
     }
   },
   methods: {
     onChange(event) {
-    // event.detail 的值为当前选中项的索引
+      // event.detail 的值为当前选中项的索引
       this.setData({ active: event.detail })
     }
   }
-
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.layout-container {
+  box-sizing: border-box;
+}
+</style>

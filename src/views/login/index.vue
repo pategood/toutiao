@@ -1,6 +1,6 @@
 <template>
-  <div class="login-container">
-    <van-nav-bar class="app-nav-bar"
+  <div class="login-container background-img">
+    <van-nav-bar class="app-nav-bar background-item"
     title="登录 / 注册"
     left-arrow
     @click-left="$router.back()" />
@@ -14,7 +14,7 @@
       @submit="onLogin"
       @failed="onFailed"
     >
-      <van-field
+      <van-field round
         v-model="user.mobile"
         icon-prefix="t"
         left-icon="shouji"
@@ -165,4 +165,31 @@ export default {
     }
   }
 }
+// .background-img {
+//   box-sizing: border-box;
+//   width: 100%;
+//   height: 100%;
+//   margin: 0;
+//   padding: 0;
+//   font-family: "montserrat";
+//   background-image: linear-gradient(100deg, #1ea858, #47a3e0,#7c8996, #f1e971, #8e44ad);
+//   background-size: 100%;
+//   animation: bganimation 15s infinite;
+//   .background-item {
+//     color: white;
+//     text-align: center;
+//     text-transform: uppercase;
+//   }
+// }
+// @keyframes identifier {
+//   0% {
+//     background-position: 0% 50%;
+//   }
+//   50% {
+//     background-position: 100% 50%;
+//   }
+//   100% {
+//     background-position: 0% 50%;
+//   }
+// }
 </style>

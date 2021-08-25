@@ -1,8 +1,8 @@
 @font-face {
   font-family: "t"; /* Project id 2649023 */
-  src: url('//at.alicdn.com/t/font_2649023_fzp2jdyb25g.woff2?t=1626317312675') format('woff2'),
-       url('//at.alicdn.com/t/font_2649023_fzp2jdyb25g.woff?t=1626317312675') format('woff'),
-       url('//at.alicdn.com/t/font_2649023_fzp2jdyb25g.ttf?t=1626317312675') format('truetype');
+  src: url('//at.alicdn.com/t/font_2649023_nbbyei0j8s9.woff2?t=1629893974542') format('woff2'),
+       url('//at.alicdn.com/t/font_2649023_nbbyei0j8s9.woff?t=1629893974542') format('woff'),
+       url('//at.alicdn.com/t/font_2649023_nbbyei0j8s9.ttf?t=1629893974542') format('truetype');
 }
 
 .t {
@@ -11,6 +11,26 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.t-paizhao:before {
+  content: "\e660";
+}
+
+.t-zhibo:before {
+  content: "\e64a";
+}
+
+.t-shangchuan:before {
+  content: "\e61c";
+}
+
+.t-note:before {
+  content: "\e617";
+}
+
+.t-game:before {
+  content: "\e9b3";
 }
 
 .t-news:before {

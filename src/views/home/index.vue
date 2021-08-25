@@ -1,10 +1,15 @@
 <template>
   <div class="home-container">
     <!-- 导航栏 -->
-    <van-nav-bar class="app-nav-bar">
+    <van-nav-bar class="app-nav-bar" safe-area-inset-top>
       <van-button class="search-btn" slot="title" icon="search" type="info" to="/search" round size="small">
         搜索
       </van-button>
+      <div slot="right">
+        <van-icon dot class="game-btn" class-prefix="t" name="game" type="info" to="/game" round />
+        <van-icon class="note-btn" class-prefix="t" name="note" type="info" to="/note"  :badge="`${$store.state.msgCount}`"/>
+        <!-- :badge="`${$store.state.count}+'+'`" -->
+      </div>
     </van-nav-bar>
 
     <!-- 文章频道 -->
@@ -97,9 +102,11 @@ export default {
     max-width: none;
   }
   .search-btn {
-    width: 277px;
+    // width: 277px;
+    width: 150px;
     height: 32px;
     background-color: #5babfb;
+    // background-color: lightskyblue;
     border: none;
     .van-icon {
       font-size: 16px;
@@ -107,6 +114,32 @@ export default {
     .van-button__text {
       font-size: 14px;
     }
+  }
+  ::v-deep .game-btn {
+    // width: 20px;
+    // height: 32px;
+    position: relative;
+    font-size: 20px;
+    color: white;
+    margin-right: 5px;
+  }
+  ::v-deep .note-btn {
+    // width: 20px;
+    // height: 32px;
+    font-size: 20px;
+    position: relative;
+    color: white;
+    margin-left: 5px;
+  }
+  ::v-deep .van-info--dot{
+    height: 5px !important;
+    width: 4px !important;
+  }
+  ::v-deep .van-info{
+    border: none;
+    font-size: 3px;
+    min-width:5px;
+    min-height:5px;
   }
   .channel-tabs {
     ::v-deep .van-tab {

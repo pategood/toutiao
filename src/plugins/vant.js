@@ -21,7 +21,8 @@ import {
     PullRefresh,
     Popup,
     Search,
-    ImagePreview
+    ImagePreview,
+    Popover
 } from "vant";
 
 
@@ -33,5 +34,6 @@ Vue.use(CellGroup)
   .use(Tabs)
   .use(List)
   .use(Search)
-  .use(ImagePreview);
+  .use(ImagePreview)
+  .use(Popover);
 Vue.use(PullRefresh).use(Popup)
