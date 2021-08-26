@@ -24,7 +24,7 @@
             text="模板制作" icon="photo-o" @click="showPopover = false"/>
         </van-grid>
           <template #reference>
-          <van-button type="primary">自定义内容</van-button>
+            <div class="add "></div>
         </template>
       </van-popover>
       <van-tabbar-item icon="video-o" to="/video">视频</van-tabbar-item>
@@ -54,5 +54,39 @@ export default {
 <style lang="scss" scoped>
 .layout-container {
   box-sizing: border-box;
+  ::v-deep .van-popover__wrapper{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    .add {
+      border: 1px solid;
+      width: 40px;
+      height: 40px;
+      color: #ccc;
+      transition: color .25s;
+      border-radius:8px;
+      position: relative;
+    }
+    .add::before{
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 25px;
+      margin-left: -12.5px;
+      margin-top: -2.5px;
+      border-top: 2.5px solid;
+    }
+    .add::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      height: 25px;
+      margin-left: -2.5px;
+      margin-top: -12.5px;
+      border-left: 2.5px solid;
+    }
+  }
 }
 </style>
