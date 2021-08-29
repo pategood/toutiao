@@ -8,8 +8,6 @@ module.exports = {
     parser: "babel-eslint"
   },
   rules: {
-    // 'space-before-function-paren': 0,
-
     "space-before-blocks": [2, "always"], // 代码块前至少有一个空格
     "space-before-function-paren": [2, "never"], // 函数名称或 function 关键字与开头括号之间不允许有空格
     semi: ["error", "never"], // 禁用 分号
