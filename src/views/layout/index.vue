@@ -6,30 +6,27 @@
     <van-tabbar v-model="active" route safe-area-inset-bottom>
       <van-tabbar-item icon="home-o" to="/">首页</van-tabbar-item>
       <van-tabbar-item icon="comment-o" to="/qa">问答</van-tabbar-item>
-      <van-popover v-model="showPopover" trigger="click" placement="top">
-        <van-grid
-          square
-          clickable
-          :border="false"
-          column-num="4"
-          style="width: 240px;"
-        >
-          <van-grid-item
-            text="开直播" icon="photo-o" @click="showPopover = false"/>
-          <van-grid-item
-            text="拍照" icon="photo-o" @click="showPopover = false"/>
-          <van-grid-item
-            text="上传" icon="photo-o" @click="showPopover = false"/>
-          <van-grid-item
-            text="模板制作" icon="photo-o" @click="showPopover = false"/>
-        </van-grid>
+      <van-tabbar-item>
+        <van-popover v-model="showPopover" trigger="click" placement="top">
+          <van-grid
+            square offset="200px"
+            clickable
+            :border="false" style="width: 260px;"
+            column-num="4" class="popoverBox">
+            <van-grid-item text="开直播" icon="photo-o" @click="showPopover = false"/>
+            <van-grid-item text="拍照" icon="photo-o" @click="showPopover = false"/>
+            <van-grid-item text="上传" icon="photo-o" @click="showPopover = false"/>
+            <van-grid-item text="模板制作" icon="photo-o" @click="showPopover = false"/>
+          </van-grid>
           <template #reference>
             <div class="add "></div>
-        </template>
-      </van-popover>
+          </template>
+        </van-popover>
+      </van-tabbar-item>
       <van-tabbar-item icon="video-o" to="/video">视频</van-tabbar-item>
       <van-tabbar-item icon="manager-o" to="/my">我的</van-tabbar-item>
     </van-tabbar>
+
   </div>
 </template>
 
@@ -52,40 +49,44 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.layout-container {
+::v-deep.layout-container {
   box-sizing: border-box;
-  ::v-deep .van-popover__wrapper{
-    display:flex;
-    justify-content: center;
-    align-items: center;
+  // ::v-deep .popoverBox{
+  //   width: 300px !important;
+  // }
+  .van-popover__wrapper{
     .add {
       border: 1px solid;
-      width: 40px;
-      height: 40px;
+      width: 33px;
+      height: 33px;
       color: #ccc;
       transition: color .25s;
       border-radius:8px;
       position: relative;
+      background: #f86934;
     }
     .add::before{
       content: '';
       position: absolute;
-      left: 50%;
-      top: 50%;
-      width: 25px;
-      margin-left: -12.5px;
-      margin-top: -2.5px;
+      left: 25%;
+      top: 46.5%;
+      width: 50%;
       border-top: 2.5px solid;
+      // margin-left: -calc(50%/2);
+      // margin-top: -2.5px;
     }
     .add::after {
       content: '';
       position: absolute;
-      left: 50%;
-      top: 50%;
-      height: 25px;
-      margin-left: -2.5px;
-      margin-top: -12.5px;
+      left: 47%;
+      bottom: 25%;
+      height: 50%;
+      // margin-left: calc(50%/2);
+      // margin-top: -12.5px;
       border-left: 2.5px solid;
+    }
+    .add:hover {
+      color: #38e0bf;
     }
   }
 }

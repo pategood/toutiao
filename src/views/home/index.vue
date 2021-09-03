@@ -97,7 +97,7 @@ export default {
 
 <style lang="scss" scoped>
 // @import "../../styles/scss/base.scss";
-@import "@/styles/scss/base.scss";
+// @import "@/styles/scss/base.scss";
 .home-container{
   ::v-deep .van-nav-bar__title {
     max-width: none;

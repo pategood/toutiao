@@ -2,14 +2,14 @@
   <div class="reviewContent">
     <!-- <van-pull-refresh v-model="isLoading" @refresh="onRefresh"> -->
 
+      <van-cell title="全部评论"></van-cell>
       <van-list
         v-model="loading"
         :finished="finished"
         finished-text="没有更多了"
         @load="onLoad"
       >
-
-        <van-cell v-for="item in list" :key="item" :title="item" />
+        <review-item v-for="(review, index) in list" :key="index" :review="review"></review-item>
       </van-list>
     <!-- </van-pull-refresh> -->
 
@@ -18,6 +18,7 @@
 
 <script>
 import { getReviews } from '@/api/review.js'
+import reviewItem from './reviewItem.vue'
 export default {
   name: 'reviewList',
   data() {
@@ -25,8 +26,18 @@ export default {
       list: [],
       loading: false,
       finished: false,
-      isLoading: false
+      offset: null,
+      isLoading: false // 下拉刷新
     }
+  },
+  props: {
+    source: {
+      tyep: [Number, String, Object],
+      required: true
+    }
+  },
+  components: {
+    reviewItem
   },
   methods: {
     onRefresh() {
@@ -35,21 +46,20 @@ export default {
     async onLoad() {
       // 异步更新数据
       // setTimeout 仅做示例，真实场景中一般为 ajax 请求
-      this.list = await getReviews()
-      console.log(this.list)
-      setTimeout(() => {
-        for (let i = 0; i < 10; i++) {
-          this.list.push(this.list.length + 1)
-        }
-
-        // 加载状态结束
-        this.loading = false
-
-        // 数据全部加载完成
-        if (this.list.length >= 40) {
-          this.finished = true
-        }
-      }, 1000)
+      const { data } = await getReviews({
+        type: 'a', // 评论类型 (回复还是评论)
+        source: this.source || 139987,
+        offset: this.offset, // 获取文章数据的偏移量,理解为页码   不传表示默认第一页
+        limit: this.limit // 每页数量
+      })
+      const { results } = data.data
+      this.list.push(...results)
+      this.loading = false
+      if (results.length) {
+        this.offset = data.data.last_id
+      } else {
+        this.finished = true
+      }
     }
   }
 }

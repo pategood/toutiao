@@ -18,7 +18,7 @@
       <div class="content markdown-body" v-html="article.content" ref="article-content"></div>
 
       <!-- 文章评论列表 -->
-      <review-list />
+      <review-list :source="articleId" />
       <!-- <div class="article-header">
         <div class="left">
           <img src="http://img.yzcdn.cn/vant/cat.jpeg" class="head-img"  alt="用户头像" />
@@ -27,16 +27,14 @@
             <p class="releaseTime">14小时前</p>
           </div>
         </div>
-
         <div class="right">
           <button class="btn"><span v-if="true">+关注</span><span v-else>已关注</span></button>
         </div>
-
       </div> -->
     </div>
 
     <div class="article-footer">
-      <van-button class="comment-btn" type="default" round size="small">写评论</van-button>
+      <van-button class="comment-btn" type="default" round size="small" @click="isEditReview=true">写评论</van-button>
       <van-icon name="comment-o" badge="123" color="#777" />
       <van-icon @click="onCollect" :loading="isCollectLoading"
         :color="article.is_collected ? 'orange':'#777'" :name="article.is_collected ? 'star':'star-o'" />
@@ -45,11 +43,18 @@
        />
       <van-icon name="share" color="#777" />
     </div>
+    <van-popup
+      v-model="isEditReview"
+      position="bottom"
+    >
+      <post-review :target="articleId" />
+    </van-popup>
   </div>
 </template>
 <script>
 import './github-markdown.css'
 import reviewList from './components/reviewList'
+import postReview from './components/postReview'
 import { getArticle, addCollect, undoCollect, addLike, deleteLike } from '@/api/article.js'
 import { addFollow, undoFollow } from '@/api/user.js'
 import { ImagePreview } from 'vant'
@@ -61,7 +66,8 @@ export default {
     return {
       article: {},
       isFollowLoading: false,
-      isCollectLoading: false
+      isCollectLoading: false,
+      isEditReview: false
     }
   },
   props: {
@@ -71,7 +77,8 @@ export default {
     }
   },
   components: {
-    reviewList
+    reviewList,
+    postReview
   },
   created() {
     this.loadArticle()
@@ -104,7 +111,6 @@ export default {
         })
       }
     },
-
     onFollow: throttle(async function() {
       if (this.$store.state.user && this.$store.state.user.token) {
         try {
@@ -134,7 +140,6 @@ export default {
       leading: true,
       trailing: false
     }),
-
     // 收藏
     onCollect: throttle(async function() {
       if (this.$store.state.user && this.$store.state.user.token) {

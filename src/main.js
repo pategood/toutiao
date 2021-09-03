@@ -13,6 +13,10 @@ import './styles/index.scss'
 import 'amfe-flexible'
 
 import './utils/dayjs'
+// import './utils/svg.js'
+// import misIcon from '@/components/common/misIcon.vue'
+// // 注册全局插件
+// Vue.component('mis-icon', MisIcon)
 
 Vue.config.productionTip = false
 
