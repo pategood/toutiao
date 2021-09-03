@@ -60,7 +60,7 @@
     <van-cell title="消息通知" icon-prefix="t" icon="news" is-link to="/" v-if="user" />
     <van-cell title="课堂模式" icon-prefix="t" icon="ketang" is-link to="/" />
     <van-cell title="青少年模式" icon-prefix="t" icon="yusan" is-link to="/" />
-    <van-cell title="联系客服" icon-prefix="t" icon="lianxikefu" is-link to="/" />
+    <van-cell title="联系客服" icon-prefix="t" icon="lianxikefu" is-link to="/user/chat" />
     <van-cell title="设置" icon-prefix="t" icon="shezhi" is-link to="" class="mb-4" />
 
     <van-cell
