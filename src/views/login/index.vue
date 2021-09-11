@@ -93,6 +93,8 @@ export default {
         const { data } = await login(this.user)
         this.$toast.success('登录成功')
         this.$store.commit('setUser', data.data)
+        // 清除 layout 的缓存,让他重新渲染
+        this.$store.commit('removeCachePage', 'LayoutIndex')
         // await this.$store.dispatch('userLogin', this.user)
         this.$router.back()
       } catch (err) {
