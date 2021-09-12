@@ -93,6 +93,15 @@ const routes = [
     }
   },
   {
+    path: "/userEdit",
+    name: "userEdit",
+    component: () => import("@/views/my/components/userEdit.vue"),
+    meta: {
+      login_require: true,
+      index: 2
+    }
+  },
+  {
     path: "/test",
     name: "test",
     component: () => import("@/views/test/"),

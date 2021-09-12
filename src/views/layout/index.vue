@@ -22,7 +22,7 @@
             <van-grid-item text="模板制作" icon="photo-o" @click="showPopover = false"/>
           </van-grid>
           <template #reference>
-            <div class="add "></div>
+            <div class="add"></div>
           </template>
         </van-popover>
       </van-tabbar-item>
@@ -92,7 +92,7 @@ export default {
       border-left: 2.5px solid;
     }
     .add:hover {
-      color: #38e0bf;
+      color: #fff;
     }
   }
 }
