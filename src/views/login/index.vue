@@ -96,7 +96,8 @@ export default {
         // 清除 layout 的缓存,让他重新渲染
         this.$store.commit('removeCachePage', 'LayoutIndex')
         // await this.$store.dispatch('userLogin', this.user)
-        this.$router.back()
+
+        this.$router.push(this.$route.query.redirect || '/')
       } catch (err) {
         this.$toast.fail('登录失败,手机号和验证码错误')
       }

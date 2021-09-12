@@ -45,7 +45,7 @@ export default {
       // 下拉刷新加载状况
       isLoading: false,
       // 下拉刷新
-      refreshSuccessText: 0,
+      refreshSuccessText: 0 || '',
       // 记忆列表距离滚动到顶部的距离
       memoryScrollTop: null
     }
@@ -84,6 +84,7 @@ export default {
     }
   },
   mounted() {
+    this.onLoad()
     const articleListRef = this.$refs['article-list']
     articleListRef.onscroll = debounce(() => {
       this.memoryScrollTop = articleListRef.scrollTop

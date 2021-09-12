@@ -1,22 +1,22 @@
 <template>
   <div class="container" >
-    <vue-draggable-resizable v-for='(item, index) in Arr'
+    <!-- <vue-draggable-resizable v-for='(item, index) in Arr'
       :key="item.customId" :custom-id="item.customId"  @activated="onActivated($event)"
       :h="100"
       :w="100"
     >
       {{index}}
       <ele-card />
-    </vue-draggable-resizable>
+    </vue-draggable-resizable> -->
 
     <test-component  />
   </div>
 </template>
 
 <script>
-import eleCard from './components/eleCard.vue'
+// import eleCard from './components/eleCard.vue'
 import testComponent from '@/components/common/testComponent.vue'
-import VueDraggableResizable from 'vue-draggable-resizable'
+// import VueDraggableResizable from 'vue-draggable-resizable'
 // import VueDraggableResizable from '@/components/common/vue-draggable-resizable/index.vue'
 // import 'vue-draggable-resizable/dist/VueDraggableResizable.css'
 
@@ -31,9 +31,9 @@ export default {
     }
   },
   components: {
-    eleCard,
-    testComponent,
-    VueDraggableResizable
+    // eleCard,
+    testComponent
+    // VueDraggableResizable
   },
   methods: {
     // 点击控件
