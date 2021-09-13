@@ -58,7 +58,8 @@ export default {
 }
 .slide-right-enter {
   opacity: 0;
-  transform: translate3d(-100%, 0, 0);
+  // transform: translate3d(-100%, 0, 0);
+  // transform: translateX(-100%)
 }
 .slide-right-leave-active {
   opacity: 0;
