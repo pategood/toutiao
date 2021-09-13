@@ -10,7 +10,7 @@
           :src="currentUser.photo"
         />
         <div slot="title" class="nickname">{{currentUser.name}}</div>
-        <van-button size="small" round class="update-btn">
+        <van-button size="small" round class="update-btn" @click="toEditData">
           编辑资料
         </van-button>
       </van-cell>
@@ -45,7 +45,12 @@
       </van-grid>
     </van-cell-group>
 
-    <div class="not-login" v-else @click="$router.push('/login')">
+    <div class="not-login" v-else @click="$router.push({
+      name: 'login',
+      query: {
+        redirect: '/my'
+      }
+    })">
       <div>
         <img class="mobile" src="@/assets/img/mobile.png" >
       </div>
@@ -111,6 +116,9 @@ export default {
     async loadCurrentUser() {
       const { data } = await getCurrentUser()
       this.currentUser = data.data
+    },
+    toEditData() {
+      this.$router.push('/userEdit')
     }
   }
 }

@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import { Dialog } from "vant";
+import store from '@/store/'
 
 Vue.use(VueRouter)
 
@@ -8,7 +10,10 @@ const routes = [
     path: "/login",
     name: "login",
     component: () => import("@/views/login"),
-    meta: { index: 1 }
+    meta: {
+      index: 1,
+      login_require: false
+    }
   },
   {
     path: "/",
@@ -21,7 +26,9 @@ const routes = [
         meta: {
           login_require: false,
           title: "主页",
-          meta: { index: 0 }
+          meta: {
+            index: 0
+          }
         }
       },
       {
@@ -60,7 +67,10 @@ const routes = [
     path: "/search",
     name: "search",
     component: () => import("@/views/search/"),
-    meta: { index: 1 }
+    meta: {
+      index: 1,
+      login_require: true
+    }
   },
   {
     path: "/article/:articleId",
@@ -69,7 +79,8 @@ const routes = [
     props: true,
     component: () => import("@/views/article/"),
     meta: {
-      index: 2
+      index: 2,
+      login_require: false
     }
   },
   {
@@ -78,18 +89,55 @@ const routes = [
     component: () => import("@/views/my/components/user-chat.vue"),
     // component: () => import("@/views/my/user-chat.vue"),
     meta: {
+      index: 2,
+      login_require: true
+    }
+  },
+  {
+    path: "/userEdit",
+    name: "userEdit",
+    component: () => import("@/views/my/components/userEdit.vue"),
+    meta: {
+      login_require: true,
       index: 2
     }
   },
   {
     path: "/test",
     name: "test",
-    component: () => import("@/views/test/")
+    component: () => import("@/views/test/"),
+    meta: {
+      login_require: false
+    }
   }
 ];
+
 
 const router = new VueRouter({
   routes
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.login_require) {
+    if (store.state.user) {
+      return next()
+    }
+    Dialog.confirm({
+      title: "访问提示",
+      message: "该功能需要登录才能访问,确认登录吗"
+    }).then(() => {
+        router.replace({
+          name: "login",
+          query: {
+            redirect: router.currentRoute.fullPath
+          }
+        });
+    }).catch(() => {
+        // next(false);
+      });
+  } else {
+    next();
+  }
+});
 
 export default router

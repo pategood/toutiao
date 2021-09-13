@@ -1,20 +1,23 @@
 <template>
   <div id="app">
     <transition :name="transitionName">
-        <keep-alive>
-        <!-- <keep-alive :include="keepAlive"> -->
+        <keep-alive :include="cachePages">
           <router-view />
         </keep-alive>
     </transition>
   </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'App',
   data() {
     return {
       transitionName: ''
     }
+  },
+  computed: {
+    ...mapState(['cachePages'])
   },
   watch: { // 使用watch 监听$router的变化
     $route(to, from) {
